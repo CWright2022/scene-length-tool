@@ -52,6 +52,7 @@ def create_scene_list(file, regex):
                     scene = Scene(start, end, length, line)
                     scenes.append(scene)
                     have_start = False
+                    start = current_line
                 else:
                     start = current_line
                     have_start = True
