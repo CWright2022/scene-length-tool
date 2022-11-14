@@ -36,7 +36,7 @@ def create_scene_list(file, regex):
     returns a big list
     '''
     scenes = []
-    with open(file, encoding="utf8") as file:
+    with open(file, encoding="utf-8") as file:
         have_start = False
         # eww, counting starting at 1
         count = 0
