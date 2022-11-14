@@ -85,8 +85,8 @@ def print_scenes(scenes):
 
 def main():
     scenes, count = create_scene_list(FILE, REGEX)
-    print("found "+str(count)+" matches")
-    scenes.sort(key=scene_length_key)
+    print("found "+str(count)+" matches\n")
+    scenes.sort(key=scene_length_key,reverse=True)
     print_scenes(scenes)
 
 
