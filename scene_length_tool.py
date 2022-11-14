@@ -13,7 +13,7 @@ import re
 FILE = "c:/users/minds/downloads/FINAL PLAY SCRIPT.txt"
 
 # regex string to match
-REGEX = "i'm (.*teen|six|seven|eight|nine|ten|eleven|twelve)"
+REGEX = ".*i'm.*"
 
 
 class Scene:
@@ -39,11 +39,13 @@ def create_scene_list(file, regex):
     with open(file, encoding="utf8") as file:
         have_start = False
         # eww, counting starting at 1
+        count = 0
         current_line = 1
         start = 0
         end = 0
         for line in file:
-            if re.match(regex, line, re.IGNORECASE):
+            if re.match(regex, line, flags=re.IGNORECASE):
+                count += 1
                 if have_start:
                     end = current_line
                     length = end-start
@@ -61,7 +63,7 @@ def create_scene_list(file, regex):
         scenes.append(scene)
         have_start = False
 
-    return scenes
+    return scenes, count
 
 
 def print_scenes(scenes):
@@ -71,17 +73,18 @@ def print_scenes(scenes):
     # eww, more counting at 1
     index = 1
     for scene in scenes:
-        print("SCENE "+str(index)+":")
+        print("POTENTIAL SCENE "+str(index)+":")
         print("LENGTH: "+str(scene.length)+" lines")
         print("BEGINS ON LINE: "+str(scene.start_line))
-        print("WITH: "+str(scene.start_text))
+        print("TEXT: "+str(scene.start_text))
         print("ENDS ON LINE: "+str(scene.end_line))
-        print("")
+        print("----------")
         index += 1
 
 
 def main():
-    scenes = create_scene_list(FILE, REGEX)
+    scenes, count = create_scene_list(FILE, REGEX)
+    print("found "+str(count)+" matches")
     scenes.sort(key=scene_length_key)
     print_scenes(scenes)
 
