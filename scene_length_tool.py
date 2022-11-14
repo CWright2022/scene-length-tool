@@ -49,13 +49,14 @@ def create_scene_list(file, regex):
                 if have_start:
                     end = current_line
                     length = end-start
-                    scene = Scene(start, end, length, line)
+                    scene = Scene(start, end, length, text)
                     scenes.append(scene)
                     have_start = False
                     start = current_line
                 else:
                     start = current_line
                     have_start = True
+                    text=line
             current_line += 1
         # make sure the final scene is "closed"
         end = current_line
